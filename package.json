@@ -1,0 +1,21 @@
+{
+  "name": "clnext-deno-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint"
+  },
+  "author": "Michael Tyson",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "prettier": "^2.5.1",
+    "turbo": "^1.1.5"
+  },
+  "volta": {
+    "node": "16.14.0"
+  }
+}

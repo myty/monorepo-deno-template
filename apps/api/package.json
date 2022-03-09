@@ -1,0 +1,12 @@
+{
+    "name": "api",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+      "dev": "deno run --allow-net --allow-read --allow-env mod.ts",
+      "lint": "deno lint"
+    },
+    "devDependencies": {
+      "tsconfig": "workspace:*"
+    }
+  }
