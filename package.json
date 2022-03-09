@@ -1,20 +1,20 @@
 {
-  "name": "clnext-deno-test",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint"
-  },
-  "author": "Michael Tyson",
-  "license": "ISC",
-  "devDependencies": {
-    "turbo": "^1.1.6"
-  },
-  "volta": {
-    "node": "16.14.0"
-  },
-  "packageManager": "pnpm@6.32.3"
+    "name": "clnext-deno-test",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "turbo run build",
+        "dev": "turbo run dev --parallel",
+        "lint": "turbo run lint"
+    },
+    "author": "Michael Tyson",
+    "license": "ISC",
+    "devDependencies": {
+        "turbo": "^1.1.6"
+    },
+    "volta": {
+        "node": "16.14.0"
+    },
+    "packageManager": "pnpm@6.32.3"
 }
