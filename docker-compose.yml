@@ -1,7 +1,7 @@
 version: "3.3"
 services:
-  db:
-    container_name: db
+  deno_db:
+    container_name: deno_db
     image: mysql:latest
     restart: always
     ports:
@@ -12,4 +12,4 @@ services:
       MYSQL_PASSWORD: deno_password
       MYSQL_RANDOM_ROOT_PASSWORD: "1"
     volumes:
-      - "./db:/var/lib/mysql"
+      - "./temp_db:/var/lib/mysql"

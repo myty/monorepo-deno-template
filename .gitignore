@@ -137,4 +137,4 @@ dist/**
 
 # app files
 apps/api/output.bundle.js
-/apps/db/db
+/temp_db
