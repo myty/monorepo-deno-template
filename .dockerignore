@@ -1,0 +1,10 @@
+# directories
+**/node_modules/
+**/bin/
+**/obj/
+**/out/
+
+# files
+Dockerfile*
+**/*.md
+**/output.bundle.js

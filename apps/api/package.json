@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "dev": "deno run --allow-net --allow-read --allow-env mod.ts",
+        "start": "deno run --allow-net --allow-read --allow-env --watch main.ts",
+        "dev": "deno run --allow-net --allow-read --allow-env --watch main.ts",
         "lint": "deno lint"
     },
     "devDependencies": {

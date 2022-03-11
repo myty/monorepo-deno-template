@@ -134,3 +134,6 @@ dist
 build/**
 dist/**
 .next/**
+
+# app files
+apps/api/output.bundle.js
