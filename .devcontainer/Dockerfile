@@ -35,6 +35,4 @@ RUN mkdir pnpm
 RUN chown :1000 ./pnpm
 RUN chmod 775 ./pnpm
 RUN chmod g+s ./pnpm
-
-WORKDIR /workspace
-RUN pnpm config set store-dir=/home/node/.cache/pnpm
+RUN echo "store-dir=/home/node/.cache/pnpm" >> /home/node/.npmrc

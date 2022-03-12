@@ -2,7 +2,7 @@
     "name": "clnext-deno-test",
     "version": "0.1.0",
     "scripts": {
-        "container-build": "docker build --pull -t denoapp -f ./apps/api/Dockerfile.production .",
+        "container-build": "docker build --pull -t denoapp -f ./.containers/apps/api/Dockerfile.production .",
         "build": "turbo run build",
         "dev": "turbo run dev --parallel",
         "start": "turbo run start --parallel",

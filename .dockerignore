@@ -149,3 +149,4 @@ dist/**
 
 # app files
 apps/api/output.bundle.js
+.containers

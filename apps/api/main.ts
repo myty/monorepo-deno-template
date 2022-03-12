@@ -1,10 +1,5 @@
-import {
-    Application,
-    Database,
-    DataTypes,
-    Model,
-    MySQLConnector,
-} from './deps.ts';
+import { Application, Database, MySQLConnector } from './deps.ts';
+import { LogEntry } from './models/index.ts';
 
 const connection = new MySQLConnector({
     host: 'db',
@@ -14,24 +9,6 @@ const connection = new MySQLConnector({
 });
 
 const db = new Database(connection);
-
-class LogEntry extends Model {
-    static table = 'log_entries';
-    static timestamps = true;
-
-    static fields = {
-        id: { primaryKey: true, autoIncrement: true },
-        message: DataTypes.STRING,
-        json: {
-            type: DataTypes.JSON,
-            allowNull: true,
-        },
-    };
-
-    _id!: string;
-    message!: string;
-    json!: string;
-}
 
 db.link([LogEntry]);
 
@@ -60,6 +37,7 @@ app.use(async (ctx) => {
     const responseBody = `Hello ${name}!`;
 
     const log = new LogEntry();
+    log.title = 'Title';
     log.message = 'Hello World!';
     log.json = JSON.stringify({
         message: 'Hello World!',

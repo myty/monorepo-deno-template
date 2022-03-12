@@ -2,26 +2,28 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.224.2/containers/javascript-node-postgres
 // Update the VARIANT arg in docker-compose.yml to pick a Node.js version
 {
-	"name": "CLNext",
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "app",
-	"workspaceFolder": "/workspace",
+    "name": "CLNext",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
 
-	// Set *default* container specific settings.json values on container create.
-	"settings": {},
+    // Set *default* container specific settings.json values on container create.
+    "settings": {},
 
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"dbaeumer.vscode-eslint"
-	],
+    // Add the IDs of extensions you want installed when the container is created.
+    "extensions": [
+        "dbaeumer.vscode-eslint",
+        "denoland.vscode-deno",
+        "laurencebahiirwa.deno-std-lib-snippets"
+    ],
 
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// This can be used to network with other containers or with the host.
-	"forwardPorts": [3000, 3306],
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // This can be used to network with other containers or with the host.
+    "forwardPorts": [3000, 3306],
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "pnpm i",
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": "pnpm i",
 
-	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "node"
+    // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+    "remoteUser": "node"
 }

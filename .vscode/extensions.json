@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "laurencebahiirwa.deno-std-lib-snippets"
+		"denoland.vscode-deno",
+		"laurencebahiirwa.deno-std-lib-snippets"
     ]
 }
