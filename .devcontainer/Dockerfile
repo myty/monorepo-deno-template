@@ -18,9 +18,21 @@ FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 # [Optional] Uncomment if you want to install more global node modules
 # RUN su node -c "npm install -g pnpm"
 
-# Add PNPM
-ENV PNPM_VERSION ${PNPM_VERSION}
-RUN curl -sL https://unpkg.com/@pnpm/self-installer | node
-
 # Add Deno
 COPY --from=deno /deno /usr/local/bin/deno
+WORKDIR /home/node
+RUN mkdir ./.cache
+WORKDIR /home/node/.cache
+RUN mkdir deno
+RUN chown :1000 ./deno
+RUN chmod 775 ./deno
+RUN chmod g+s ./deno
+
+# Add PNPM
+WORKDIR /workspace
+ENV PNPM_VERSION ${PNPM_VERSION}
+RUN curl -sL https://unpkg.com/@pnpm/self-installer | node
+RUN mkdir ./.pnpm-store
+RUN chown :1000 ./.pnpm-store
+RUN chmod 775 ./.pnpm-store
+RUN chmod g+s ./.pnpm-store
