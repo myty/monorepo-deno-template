@@ -7,7 +7,7 @@ import {
 } from './deps.ts';
 
 const connection = new MySQLConnector({
-    host: 'localhost',
+    host: 'db',
     username: 'deno_user',
     password: 'deno_password',
     database: 'deno_db',
