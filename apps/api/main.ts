@@ -1,5 +1,7 @@
+import { ApplicationRouter } from './routes/application-router.ts';
+import { userRoutes } from './routes/users/index.ts';
 import { Application, Database, MySQLConnector } from './deps.ts';
-import { LogEntry } from './models/index.ts';
+import { User } from './models/index.ts';
 
 const connection = new MySQLConnector({
     host: 'db',
@@ -10,11 +12,12 @@ const connection = new MySQLConnector({
 
 const db = new Database(connection);
 
-db.link([LogEntry]);
+db.link([User]);
 
 await db.sync({ drop: true });
 
 const app = new Application();
+const applicationRouter = new ApplicationRouter();
 
 // Logger
 app.use(async (ctx, next) => {
@@ -31,21 +34,7 @@ app.use(async (ctx, next) => {
     ctx.response.headers.set('X-Response-Time', `${ms}ms`);
 });
 
-// Hello World
-app.use(async (ctx) => {
-    const name = ctx.request.url.searchParams.get('name') ?? 'World';
-    const responseBody = `Hello ${name}!`;
-
-    const log = new LogEntry();
-    log.title = 'Title';
-    log.message = 'Hello World!';
-    log.json = JSON.stringify({
-        message: 'Hello World!',
-        name,
-    });
-    await log.save();
-
-    ctx.response.body = responseBody;
-});
+app.use(applicationRouter.routes()); // Pass our router as a middleware
+app.use(applicationRouter.allowedMethods()); // Allow HTTP methods on router
 
 await app.listen({ port: 3000 });
