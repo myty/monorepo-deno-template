@@ -1,8 +1,9 @@
 {
-    "name": "clnext-deno-test",
+    "name": "monorepo-deno-template",
     "version": "0.1.0",
     "scripts": {
-        "container-build": "docker build --pull -t denoapp -f ./.containers/apps/api/Dockerfile.production .",
+        "container-build": "docker build --pull -t denoapp -f ./.containers/apps/api/Dockerfile.prod .",
+        "serve": "docker compose -f ./.containers/apps/api/docker-compose.prod.yml up",
         "build": "turbo run build",
         "dev": "turbo run dev --parallel",
         "start": "turbo run start --parallel",

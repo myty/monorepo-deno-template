@@ -8,13 +8,8 @@ export interface CreateUserRequestDto {
 
 export async function createUser(userDto: CreateUserRequestDto) {
     try {
-        const user = new User();
-        user.email = userDto.email;
-        user.username = userDto.username;
-
-        await user.save();
-
-        console.log('Create User', { user, userDto });
+        const { lastInsertId } = await User.create({ ...userDto });
+        const user = await User.find(lastInsertId as string);
 
         return Result.success(user);
     } catch (err: unknown) {
@@ -22,6 +17,6 @@ export async function createUser(userDto: CreateUserRequestDto) {
             return Result.error({ message: err.message });
         }
 
-        return Result.error();
+        return Result.error({ message: 'error' });
     }
 }
