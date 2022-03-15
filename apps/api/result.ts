@@ -21,19 +21,21 @@ type ErrorResult = {
     errors: Error[];
 };
 
-type MaybeArray<T> = T | T[];
-
 export type AnyResult<T = any> = SuccessResult<T> | ErrorResult;
 
 // Result Implementaion
 
-export const Result = {
-    success<T>(value: T): SuccessResult<T> {
+export class Result {
+    static success<T>(value: T): SuccessResult<T> {
         return {
             resultObject: value,
         };
-    },
-    error(errors: MaybeArray<Partial<Error>> = {}): ErrorResult {
+    }
+
+    static error(): ErrorResult;
+    static error(errors: Partial<Error>): ErrorResult;
+    static error(errors: Partial<Error>[]): ErrorResult;
+    static error(errors: Partial<Error> | Partial<Error>[] = {}): ErrorResult {
         errors = Array.isArray(errors) ? errors : [errors];
 
         return {
@@ -43,5 +45,5 @@ export const Result = {
                 message: error.message,
             })),
         };
-    },
-};
+    }
+}
