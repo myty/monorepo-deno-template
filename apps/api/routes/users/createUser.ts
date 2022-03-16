@@ -12,7 +12,7 @@ export async function createUser(userDto: CreateUserRequestDto) {
         const { lastInsertId } = await User.create({ ...userDto });
         const user = await User.find(lastInsertId as FieldValue);
 
-        return Result.success(user);
+        return Result.success(user as User);
     } catch (err: unknown) {
         if (err instanceof Error) {
             return Result.error({ message: err.message });

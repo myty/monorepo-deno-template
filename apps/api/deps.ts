@@ -1,4 +1,9 @@
-export { Application } from 'https://deno.land/x/oak@v10.4.0/mod.ts';
+export {
+    Application,
+    Context,
+    Router,
+} from 'https://deno.land/x/oak@v10.4.0/mod.ts';
+
 export {
     Database,
     DataTypes,
