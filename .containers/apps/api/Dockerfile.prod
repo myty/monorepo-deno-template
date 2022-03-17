@@ -17,7 +17,7 @@ RUN pnpm i --frozen-lockfile
 COPY apps/api/ apps/api/
 
 # Step 2 - Build the app
-FROM denoland/deno:alpine-1.19.2 as build
+FROM denoland/deno:alpine-1.20.1 as build
 
 WORKDIR /src
 COPY --from=source /src/ .
@@ -25,7 +25,7 @@ COPY --from=source /src/ .
 RUN deno bundle apps/api/main.ts output.bundle.js
 
 # Step 3 - Just the exectuable file
-FROM denoland/deno:alpine-1.19.2
+FROM denoland/deno:alpine-1.20.1
 
 # The port that your application listens to.
 EXPOSE 3000
