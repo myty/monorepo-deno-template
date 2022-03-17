@@ -1,4 +1,3 @@
-import { RouterMiddleware } from 'https://deno.land/x/oak@v10.4.0/router.ts';
 import { helpers, httpErrors, Status } from '../../deps.ts';
 import { hasUserRole } from '../../helpers/roles.ts';
 import { userGuard } from '../../middlewares/user-guard.middleware.ts';
@@ -22,7 +21,7 @@ async function _updateUser(id: string, userDto: UpdateUserRequestDto) {
         return Result.success(user as User);
     } catch (err: unknown) {
         if (err instanceof Error) {
-            return Result.error({ message: err.message });
+            return Result.error({ error: { message: err.message } });
         }
 
         return Result.error();

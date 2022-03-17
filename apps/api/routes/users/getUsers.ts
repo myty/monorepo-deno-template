@@ -14,7 +14,7 @@ async function _getUsers(): Promise<AnyResult<User[]>> {
         );
     } catch (err: unknown) {
         if (err instanceof Error) {
-            return Result.error({ message: err.message });
+            return Result.error({ error: { message: err.message } });
         }
 
         return Result.error();
