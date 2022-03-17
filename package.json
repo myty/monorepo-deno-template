@@ -7,7 +7,8 @@
         "build": "turbo run build",
         "dev": "turbo run dev --parallel",
         "start": "turbo run start --parallel",
-        "lint": "turbo run lint"
+        "lint": "turbo run lint --parallel",
+        "fmt": "turbo run fmt --parallel"
     },
     "author": "Michael Tyson",
     "license": "ISC",

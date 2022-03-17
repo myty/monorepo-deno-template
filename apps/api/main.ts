@@ -1,25 +1,25 @@
-import { ApplicationRouter } from './routes/application-router.ts';
 import { Application, Database, MySQLConnector } from './deps.ts';
-import { User } from './models/index.ts';
+import { router } from './routes/index.ts';
 import { dotEnvConfig } from './deps.ts';
+import { config } from './config/config.ts';
+import { UserModel } from './models/index.ts';
 
 dotEnvConfig({ export: true });
 
 const connection = new MySQLConnector({
-    database: Deno.env.get('MYSQL_DATABASE')!,
-    host: Deno.env.get('MYSQL_HOST')!,
-    password: Deno.env.get('MYSQL_PASSWORD')!,
-    username: Deno.env.get('MYSQL_USERNAME')!,
+    database: config.env.MYSQL_DATABASE,
+    host: config.env.MYSQL_HOST,
+    password: config.env.MYSQL_PASSWORD,
+    username: config.env.MYSQL_USERNAME,
 });
 
 const db = new Database(connection);
 
-db.link([User]);
+db.link([UserModel]);
 
 await db.sync({ drop: true });
 
 const app = new Application();
-const applicationRouter = new ApplicationRouter();
 
 // Logger
 app.use(async (ctx, next) => {
@@ -36,8 +36,8 @@ app.use(async (ctx, next) => {
     ctx.response.headers.set('X-Response-Time', `${ms}ms`);
 });
 
-app.use(applicationRouter.routes()); // Pass our router as a middleware
-app.use(applicationRouter.allowedMethods()); // Allow HTTP methods on router
+app.use(router.routes()); // Pass our router as a middleware
+app.use(router.allowedMethods()); // Allow HTTP methods on router
 
 await app.listen({ port: 3000 }).finally(() => {
     db.close();

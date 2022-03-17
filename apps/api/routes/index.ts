@@ -1,4 +1,4 @@
-import { Context, Router } from '../deps.ts';
+import { Router } from '../deps.ts';
 import * as userRoutes from './users/index.ts';
 
 const router: Router = new Router();

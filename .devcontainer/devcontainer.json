@@ -14,7 +14,36 @@
     "extensions": [
         "dbaeumer.vscode-eslint",
         "denoland.vscode-deno",
-        "laurencebahiirwa.deno-std-lib-snippets"
+        "laurencebahiirwa.deno-std-lib-snippets",
+        "andrewmcodes.tailwindcss-extension-pack",
+        "bradlc.vscode-tailwindcss",
+        "austenc.tailwind-docs",
+        "macieklad.tailwind-sass-syntax",
+        "Angular.ng-template",
+        "natewallace.angular2-inline",
+        "esbenp.prettier-vscode",
+        "johnpapa.pwa-tools",
+        "naumovs.color-highlight",
+        "EditorConfig.EditorConfig",
+        "miguelsolorio.fluent-icons",
+        "hashhar.gitattributes",
+        "mhutchie.git-graph",
+        "codezombiech.gitignore",
+        "christian-kohler.path-intellisense",
+        "csstools.postcss",
+        "shardulm94.trailing-spaces",
+        "aaron-bond.better-comments",
+        "akamud.vscode-caniuse",
+        "mrmlnc.vscode-csscomb",
+        "oouo-diogo-perdigao.docthis",
+        "heybourn.headwind",
+        "xabikos.JavaScriptSnippets",
+        "ms-vscode.typescript-javascript-grammar",
+        "sibiraj-s.vscode-scss-formatter",
+        "mrmlnc.vscode-scss",
+        "pmneo.tsimporter",
+        "VisualStudioExptTeam.vscodeintellicode",
+        "redhat.vscode-yaml"
     ],
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -22,7 +51,7 @@
     "forwardPorts": [3000, 3306],
 
     // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": "pnpm i",
+    "postCreateCommand": "pnpm i && deno cache ./apps/api/main.ts",
 
     // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
     "remoteUser": "node"

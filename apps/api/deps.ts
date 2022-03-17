@@ -1,7 +1,10 @@
 export {
     Application,
-    Context,
+    Context as OakContext,
+    helpers,
+    httpErrors,
     Router,
+    Status,
 } from 'https://deno.land/x/oak@v10.4.0/mod.ts';
 
 export {

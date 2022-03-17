@@ -46,4 +46,17 @@ export class Result {
             })),
         };
     }
+
+    static isSuccessResult<T>(
+        result: SuccessResult<T> | ErrorResult,
+    ): result is SuccessResult<T> {
+        const { errors = [] } = { errors: [], ...result };
+        return errors.length === 0;
+    }
+
+    static isErrorResult<T>(
+        result: SuccessResult<T> | ErrorResult,
+    ): result is ErrorResult {
+        return !Result.isSuccessResult(result);
+    }
 }
