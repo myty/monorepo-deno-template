@@ -1,4 +1,5 @@
 // deno-lint-ignore-file no-explicit-any
+import { Status } from './deps.ts';
 
 // Type Definitions
 
@@ -18,10 +19,17 @@ type Error = {
 };
 
 type ErrorResult = {
+    status: Status;
     errors: Error[];
 };
 
 export type AnyResult<T = any> = SuccessResult<T> | ErrorResult;
+
+type ErrorParams =
+    & { status?: Status }
+    & (
+        { error?: Partial<Error> } | { errors?: Partial<Error>[] }
+    );
 
 // Result Implementaion
 
@@ -32,14 +40,13 @@ export class Result {
         };
     }
 
-    static error(): ErrorResult;
-    static error(errors: Partial<Error>): ErrorResult;
-    static error(errors: Partial<Error>[]): ErrorResult;
-    static error(errors: Partial<Error> | Partial<Error>[] = {}): ErrorResult {
-        errors = Array.isArray(errors) ? errors : [errors];
+    static error(errorParams: ErrorParams = {}): ErrorResult {
+        const { status = Status.InternalServerError, ...errorOrErrors } =
+            errorParams;
 
         return {
-            errors: errors.map((error) => ({
+            status,
+            errors: Result._getErrors(errorOrErrors).map((error) => ({
                 type: error.type ?? ErrorType.Error,
                 key: error.key ?? 'ERROR',
                 message: error.message,
@@ -58,5 +65,25 @@ export class Result {
         result: SuccessResult<T> | ErrorResult,
     ): result is ErrorResult {
         return !Result.isSuccessResult(result);
+    }
+
+    private static _getErrors(
+        errorOrErrors: Omit<ErrorParams, 'status'>,
+    ): Partial<Error>[] {
+        const { error, errors } = {
+            errors: [],
+            error: {},
+            ...errorOrErrors,
+        };
+
+        if (Array.isArray(errors) && errors.length > 0) {
+            return errors;
+        }
+
+        if (error != null) {
+            return [error];
+        }
+
+        return [];
     }
 }

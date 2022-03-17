@@ -13,7 +13,7 @@ async function getUser(id: string) {
         return Result.success(user as unknown as User);
     } catch (err: unknown) {
         if (err instanceof Error) {
-            return Result.error({ message: err.message });
+            return Result.error({ error: { message: err.message } });
         }
 
         return Result.error();
@@ -22,7 +22,7 @@ async function getUser(id: string) {
 
 /**
  * get user by id
- * call by ADMIN
+ * call by ADMIN or authenticated user
  */
 export const getUserById = [
     userGuard(),
