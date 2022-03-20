@@ -1,9 +1,7 @@
-import { userGuard } from '../../middlewares/user-guard.middleware.ts';
-import { User } from '../../models/user.ts';
+import { userGuard } from '../../middleware/index.ts';
+import UserModel, { User } from '../../db/models/user-model.ts';
 import { AnyResult, Result } from '../../result.ts';
 import { Context, UserRole } from '../../types.ts';
-import { UserModel } from '../../models/index.ts';
-import { RouterMiddleware } from 'https://deno.land/x/oak@v10.4.0/router.ts';
 
 async function _getUsers(): Promise<AnyResult<User[]>> {
     try {

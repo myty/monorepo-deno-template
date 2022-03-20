@@ -1,10 +1,4 @@
-import {
-    create,
-    getNumericDate,
-    Header,
-    Payload,
-    verify,
-} from 'https://deno.land/x/djwt@v2.4/mod.ts';
+import { create, getNumericDate, Header, Payload, verify } from '../deps.ts';
 import { config } from './../config/config.ts';
 import { AuthUser } from '../types.ts';
 

@@ -1,6 +1,6 @@
 import { helpers, httpErrors, Status } from '../../deps.ts';
-import { userGuard } from '../../middlewares/user-guard.middleware.ts';
-import { UserModel } from '../../models/index.ts';
+import { userGuard } from '../../middleware/index.ts';
+import UserModel from '../../db/models/user-model.ts';
 import { Result } from '../../result.ts';
 import { Context, UserRole } from '../../types.ts';
 

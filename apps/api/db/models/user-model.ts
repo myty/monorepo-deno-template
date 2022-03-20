@@ -1,8 +1,10 @@
-import { DataTypes, Model } from '../deps.ts';
+import { DataTypes, Model } from '../../deps.ts';
+import RoleModel, { Role } from './role-model.ts';
 
 export interface User {
     id?: string;
     username: string;
+    isActive: boolean;
     email: string;
     name: string;
     password?: string;
@@ -15,17 +17,21 @@ export default class UserModel extends Model implements User {
 
     static fields = {
         id: { primaryKey: true, autoIncrement: true },
-        email: DataTypes.STRING,
-        username: DataTypes.STRING,
+        email: { type: DataTypes.STRING, unique: true },
+        isActive: { default: true, type: DataTypes.BOOLEAN },
+        username: { type: DataTypes.STRING, unique: true },
         name: DataTypes.STRING,
         password: DataTypes.STRING,
         salt: DataTypes.STRING,
     };
 
-    _id!: string;
+    id!: string;
+    isActive!: boolean;
     email!: string;
     name!: string;
     username!: string;
-    password!: string;
-    salt!: string;
+
+    static async roles(): Promise<Role[]> {
+        return (await this.hasMany(RoleModel)) as unknown as RoleModel[];
+    }
 }

@@ -3,7 +3,7 @@ import { config } from './../config/config.ts';
 import { Context } from './../types.ts';
 import { Result } from '../result.ts';
 
-const errorMiddleware = async (ctx: Context, next: () => Promise<void>) => {
+const errorMiddleware = async (ctx: Context, next: () => Promise<unknown>) => {
     try {
         await next();
     } catch (err) {

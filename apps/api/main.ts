@@ -1,44 +1,21 @@
-import { Application, Database, MySQLConnector } from './deps.ts';
+import { Application, oakCors } from './deps.ts';
 import { router } from './routes/index.ts';
-import { dotEnvConfig } from './deps.ts';
-import { config } from './config/config.ts';
-import { UserModel } from './models/index.ts';
+import * as middleware from './middleware/index.ts';
+import * as db from './db/index.ts';
 
-dotEnvConfig({ export: true });
+await db.initialize();
 
-const connection = new MySQLConnector({
-    database: config.env.MYSQL_DATABASE,
-    host: config.env.MYSQL_HOST,
-    password: config.env.MYSQL_PASSWORD,
-    username: config.env.MYSQL_USERNAME,
-});
+const port = 3000;
+const app = new Application()
+    .use(oakCors())
+    .use(middleware.loggerMiddleware)
+    .use(middleware.errorMiddleware)
+    .use(middleware.timingMiddleware)
+    .use(middleware.jwtAuthMiddleware)
+    .use(middleware.requestIdMiddleware)
+    .use(router.routes()) // Pass our router as a middleware
+    .use(router.allowedMethods()); // Allow HTTP methods on router
 
-const db = new Database(connection);
-
-db.link([UserModel]);
-
-await db.sync({ drop: true });
-
-const app = new Application();
-
-// Logger
-app.use(async (ctx, next) => {
-    await next();
-    const rt = ctx.response.headers.get('X-Response-Time');
-    console.log(`${ctx.request.method} ${ctx.request.url} - ${rt}`);
-});
-
-// Timing
-app.use(async (ctx, next) => {
-    const start = Date.now();
-    await next();
-    const ms = Date.now() - start;
-    ctx.response.headers.set('X-Response-Time', `${ms}ms`);
-});
-
-app.use(router.routes()); // Pass our router as a middleware
-app.use(router.allowedMethods()); // Allow HTTP methods on router
-
-await app.listen({ port: 3000 }).finally(() => {
-    db.close();
+await app.listen({ port }).finally(async () => {
+    await db.database.close();
 });
